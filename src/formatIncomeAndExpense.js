@@ -1,11 +1,15 @@
 function formatIncomeAndExpense() {
-  if(!window.acyData) {
+  if (!window.acyData) {
     console.log('no global data object');
-    return 
+    return
   }
+  window.chartData = [];
 
-  window.expense = _(acyData).chain().map(({expense}) => expense).flatten().valueOf();
+  _(acyData).each(function(data, type) {
+    let setData = {type};
 
-  window.income = _(acyData).chain().map(({income}) => income).flatten().valueOf();
-
+    setData.expense = _(data).chain().map(({expense}) => expense).flatten().valueOf();
+    setData.income  = _(data).chain().map(({income}) => income).flatten().valueOf();
+    window.chartData.push(setData);
+  });
 }

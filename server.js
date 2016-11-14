@@ -4,18 +4,43 @@ var csv = require('csv-parser');
 var fs = require('fs');
 var Promise = require('bluebird');
 
-function formatData(data) {
-  var obj = {};
-  return data.split('\n');
+var config = {
+  paths: [
+    './projected.csv',
+    './actual.csv',
+  ]
+};
+
+
+function readFile(path) {
+  var dataType = path.substr(2).split('.')[0];
+
+  return new Promise(function(resolve, reject) {
+    var data;
+
+    fs.readFile(path, 'utf-8', function(err, fileData ) {
+      if (err) {
+        reject(err);
+        return;
+      }
+      data = {};
+      data.type = dataType;
+      data.data = fileData;
+      resolve(data);
+    });
+  });
 }
 
 app.get('/data', function(req, res) {
-  fs.readFile('./data.csv', function(err, data) {
-    if (err) {
-      throw err; 
-    }
-    res.send(data);
-  });
+  Promise.all(config.paths.map(function(path) {
+    return readFile(path);
+  }))
+    .then(function(data) {
+      res.send(data);
+    })
+    .catch(function(err) {
+      res.send(err);
+    });
 });
 
 app.use(express.static('src'));

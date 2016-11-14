@@ -1,4 +1,4 @@
-window.acyData = [];
+window.acyData = {};
 var incomeOrExpense = 'income';
 var monthToNum = {
   January: 1,
@@ -22,13 +22,14 @@ var rowMap = ['date', 'category', 'amount', 'description', 'tag'];
 function parseMonths(rawMonths) {
   var months = [];
   var month = '';
-  for(var i = 0; i < rawMonths.length; i++) {
-    if(rawMonths[i] !== ',') {
+
+  for (var i = 0; i < rawMonths.length; i++) {
+    if (rawMonths[i] !== ',') {
       month += rawMonths[i];
     } else if (rawMonths[i] === ',') {
       months.push(month);
       month = '';
-      while(rawMonths[i] === ',') {
+      while (rawMonths[i] === ',') {
         i += 1;
       }
       i -= 1;
@@ -40,14 +41,15 @@ function parseMonths(rawMonths) {
 function parseRow(row) {
   var formattedRow = [];
   var pointer = -1;
+
   row.forEach(function(item, i) {
     var mapIndex = i % 5;
-    if(mapIndex === 0) {
-      pointer += 1; 
+    if (mapIndex === 0) {
+      pointer += 1;
       formattedRow.push({});
     } else if (mapIndex === 2) {
       item = parseFloat(item);
-    
+
     } else if (mapIndex === 4) {
       item = item.split('|').map(function(tag) {
         return tag.trim();
@@ -59,39 +61,43 @@ function parseRow(row) {
 }
 
 function formatData(data) {
-  data = data.split('\n');
+  data.forEach(function(dataSet) {
+    data = dataSet.data.split('\n');
+    acyData[dataSet.type] = [];
 
-  var months = parseMonths(data[0]);
-  months.forEach(function(month, i) {
-    monthIndex[monthToNum[month]] = i;
-    acyData.push(
-      {
-        month: month,
-        income: [],
-        expense: []
-      }
-    );
-  });
-
-  data.forEach(function(row, i) {
-    if( i < 3) {
-      return 
-    }
-    var splitRow = row.split(',');
-    if(splitRow[0]==='Expense') {
-      incomeOrExpense = 'expense';
-    }
-    formattedRow = parseRow(splitRow);
-    formattedRow.forEach(function(entry) {
-      if(entry.date === '' || entry.date === 'Expense') {
-        return;
-      }
-      var monthNum = entry.date.split('/')[0];
-      if(acyData[monthIndex[monthNum]]) {
-        acyData[monthIndex[monthNum]][incomeOrExpense].push(entry);
-      }
+    var months = parseMonths(data[0]);
+    months.forEach(function(month, i) {
+      monthIndex[monthToNum[month]] = i;
+      acyData[dataSet.type].push(
+        {
+          month: month,
+          income: [],
+          expense: []
+        }
+      );
     });
+
+    data.forEach(function(row, i) {
+      //nothing important here
+      if ( i < 3) {
+        return
+      }
+
+      var splitRow = row.split(',');
+      if (splitRow[0] === 'Expense') {
+        incomeOrExpense = 'expense';
+      }
+      formattedRow = parseRow(splitRow);
+      formattedRow.forEach(function(entry) {
+        if (entry.date === '' || entry.date === 'Expense') {
+          return;
+        }
+        var monthNum = entry.date.split('/')[0];
+        if (acyData[dataSet.type][monthIndex[monthNum]]) {
+          acyData[dataSet.type][monthIndex[monthNum]][incomeOrExpense].push(entry);
+        }
+      });
+    });
+    incomeOrExpense = 'income';
   });
 }
-
-

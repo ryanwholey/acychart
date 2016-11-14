@@ -33,61 +33,88 @@ function attachGroups() {
 function _appendYear(dateString) {
     let monthNum = parseInt(dateString.split('/')[0]);
     let year = monthNum < 5 ? '2017' : '2016';
+
     return dateString + '/' + year;
 }
 
 function formatDataWithDates(data) {
-  data.incomeWithDate = data.income.map((datum) => {
-    datum.date = new Date(_appendYear(datum.date));
-    return datum;
+  data.forEach(function(dataSet) {
+    let incomeWithDate = dataSet.income.map((datum) => {
+      datum.date = new Date(_appendYear(datum.date));
+      return datum;
+    });
+
+    dataSet.combined = dataSet.expense.reduce((memo, item) => {
+      item.amount = item.amount * -1;
+      item.date = new Date(_appendYear(item.date));
+      memo.push(item);
+      return memo;
+    }, incomeWithDate);
+
+    dataSet.combined = _(dataSet.combined).sortBy('date');
   });
-
-  data.combined = data.expense.reduce((memo, item) => {
-    item.amount = item.amount * -1;
-    item.date = new Date(_appendYear(item.date));
-    memo.push(item);
-    return memo;
-  }, data.incomeWithDate);
-
-  data.combined = _(data.combined).sortBy('date');
 }
 
-function minAndMax(data) {
-  window.xMin = d3.min(data.combined, (d) => d.date);
-  window.xMax = d3.max(data.combined, (d) => d.date);
-  window.yMax = d3.max(data.combined, (d) => d.amount);
-  window.yMin = d3.min(data.combined, (d) => d.amount);
+function _computeDateBounds(set, bound) {
+  let dataType = bound[0] === 'x' ? 'date' : 'amount';
+  let calculated = d3['m' + bound.substr(2)](set, (d) => d[dataType]);
 
-  data.running = [];
-  let pointer = moment(xMin);
-  let end = moment(xMax);
+  window[bound] = window[bound] !== undefined ?
+    Math['m'+ bound.substr(2)](window[bound], calculated) : calculated;
+}
 
-  while (pointer.isSameOrBefore(end)) {
-    data.running.push({date: pointer.toDate()});
-    pointer.add(1, 'day');
-  }
+function calculateRunningTotals(data) {
+  let bounds = ['xMin', 'xMax'];
 
-  pointer = 0;
-  runningTotal = 0;
-  data.combined.forEach((datum) => {
-    data.running[pointer].amount = runningTotal;
-    isBefore = moment(data.running[pointer].date).isBefore(datum.date);
-    while (moment(data.running[pointer].date).isBefore(datum.date)) {
-      data.running[pointer].amount = runningTotal;
-      pointer += 1;
+  data.forEach((dataSet) => {
+
+    bounds.forEach((bound) => {
+      _computeDateBounds(dataSet.combined, bound) ;
+    });
+
+    dataSet.running = [];
+    let pointer = moment(xMin);
+    let end = moment(xMax);
+
+    while (pointer.isSameOrBefore(end)) {
+      dataSet.running.push({date: pointer.toDate()});
+      pointer.add(1, 'day');
     }
-    runningTotal += datum.amount;
-  });
 
-  data.projectedRunningTotalByDate = data.running.reduce((memo, item) => (_.extend(memo, {
-    [item.date] : item.amount
-  })),{});
+    pointer = 0;
+    runningTotal = 0;
+    dataSet.combined.forEach((datum) => {
+      dataSet.running[pointer].amount = runningTotal;
+      isBefore = moment(dataSet.running[pointer].date).isBefore(datum.date);
+      while (moment(dataSet.running[pointer].date).isBefore(datum.date)) {
+        dataSet.running[pointer].amount = runningTotal;
+        pointer += 1;
+      }
+      runningTotal += datum.amount;
+    });
+
+    dataSet.runningTotalByDate = dataSet.running.reduce((memo, item) => (_.extend(memo, {
+      [item.date] : item.amount
+    })),{});
+  });
 }
 
 function buildAxis(data) {
-  yAbs = d3.max(data.running.map(({amount}) => amount));
+  let yAbs;
+
+  data.forEach((dataSet) => {
+    let calcAbsolute = d3.max(dataSet.running.map(({amount}) => amount));
+
+    if (yAbs === undefined) {
+      yAbs = calcAbsolute;
+    } else {
+      yAbs = Math.max(yAbs, calcAbsolute);
+    }
+  });
+
   yMax = yAbs + yAbs * .2;
   yMin = -.3 * yAbs;
+
   window.yScale = d3.scaleLinear()
     .domain([yMax, yMin])
     .range([TOP, TOP + CHART_HEIGHT])
@@ -118,39 +145,31 @@ function buildAxis(data) {
 
 function buildDataLines(data) {
   let line = d3.line()
-    .x((d) =>  xScale(d.date) )
-    .y((d) =>  yScale(d.amount) );
+    .x((d) => xScale(d.date))
+    .y((d) => yScale(d.amount));
 
+  data.forEach((dataSet) => {
     d3.select('.lineGroup')
       .append('path')
-      .datum(data.running)
+      .datum(dataSet.running)
       .attr('class', 'line')
       .attr('d', line)
       .attr('transform', `translate(${-LEFT}, 0)`)
-      .style('stroke', tooltipEntries['projected']);
-
-    if(data.currentRunning) {
-      d3.select('.currentDataLineGroup')
-        .append('path')
-        .datum(data.currentRunning)
-        .attr('class', 'line')
-        .attr('d', line)
-        .attr('transform', `translate(${-LEFT}, 0)`)
-        .style('stroke', tooltipEntries['actual']);
-    }
+      .style('stroke', tooltipEntries[dataSet.type]);
+  });
 }
 
 function appendTooltipBase() {
   window.tooltip = d3.select('body')
     .append('div')
-    .attr('class', 'tooltip')
+    .attr('class', 'tooltip');
 
   window.cursorLine = d3.select('.metaGroup')
     .append('line')
     .attr('class', 'cursorLine')
     .attr('stroke', 'red')
     .attr('stroke-width', 1)
-    .attr('height', CHART_HEIGHT)
+    .attr('height', CHART_HEIGHT);
 }
 
 function addMetaRect() {
@@ -160,22 +179,25 @@ function addMetaRect() {
     .attr('width', CHART_WIDTH)
     .attr('height', CHART_HEIGHT)
     .attr('transform', `translate(0, ${TOP})`)
-    .style('opacity', 0)
+    .style('opacity', 0);
 }
 
 function _getTooltipText(mouseX) {
   let date = new Date(xScale.invert(mouseX).setHours(0,0,0,0));
   let formattedDate = d3.timeFormat('%a %b %d %Y')(date);
-  let entries = Object.keys(tooltipEntries).filter((entry) => data[`${entry}RunningTotalByDate`]);
+  let possibleEntries = data.map(({type}) => type);
+  let entries = Object.keys(tooltipEntries).filter((entry) => possibleEntries.indexOf(entry) >= 0);
   let amounts = entries.reduce((memo, entry) => {
-    memo[entry] = d3.format('$,.2f')(data[`${entry}RunningTotalByDate`][date]);
+    memo[entry] = d3.format('$,.2f')(data.filter((dataSet) => dataSet.type === entry)[0].runningTotalByDate[date]);
     return memo;
   }, {});
+
+  entries = entries.filter((entry) => amounts[entry] != '$NaN');
 
   let rawHtmlEntries = entries.map((entry) => {
     return `
       <div class="tooltip_entry">
-        <div class="tooltip_entry__legend_key" style="background: ${tooltipEntries[entry]}">   .</div>
+        <div class="tooltip_entry__legend_key" style="background: ${tooltipEntries[entry]}">.</div>
         <p class=tooltip_entry__title>${entry}</p>
         <p class=tooltip_entry__amount> ${amounts[entry]} </p>
       </div>
@@ -196,7 +218,7 @@ function addTooltip(data) {
       tooltip.html(_getTooltipText(d3.event.pageX))
         .style('left', `${d3.event.pageX}px`)
         .style('top', '200px')
-        .style('opacity', .9)
+        .style('opacity', .9);
 
       cursorLine
         .attr('x1', d3.event.pageX - LEFT)
@@ -204,7 +226,6 @@ function addTooltip(data) {
         .attr('x2', d3.event.pageX - LEFT)
         .attr('y2', TOP + CHART_HEIGHT)
         .style('opacity', .9)
-
     })
     .on('mouseout', () => {
       tooltip
@@ -212,7 +233,7 @@ function addTooltip(data) {
 
       cursorLine
         .style('opacity', 0)
-    })
+    });
 }
 
 function buildChart(selector, data) {
@@ -224,7 +245,7 @@ function buildChart(selector, data) {
   attachGroups();
   addMetaRect();
   formatDataWithDates(data);
-  minAndMax(data);
+  calculateRunningTotals(data);
   buildAxis(data);
   buildDataLines(data);
   addTooltip(data);

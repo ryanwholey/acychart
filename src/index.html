@@ -20,7 +20,8 @@
           .then(function(data) {
             formatData(data);
             formatIncomeAndExpense();
-            buildChart('#chart_container',{income, expense});
+
+            buildChart('#chart_container', chartData);
           });
       });
     </script>
