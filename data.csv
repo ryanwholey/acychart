@@ -1,58 +1,58 @@
-May,,,,,June,,,,,July,,,,,August,,,,,September,,,,,October,,,,
-Income,,,,,Income,,,,,Income,,,,,Income,,,,,Income,,,,,Income,,,,
-date,category,amount,description,tag,date,category,amount,description,tag,date,category,amount,description,tag,date,category,amount,description,tag,date,category,amount,description,tag,date,category,amount,description,tag
-5/1,treasury,2000.38,Host seed money,seed,6/1,events,3675,yuba pre reg,yuba | yuba_prereg,7/1,events,1950,yuba prereg,yuba | yuba_prereg,8/13,events,213,beach day and relay race,beach_day,9/2,events,134,80s dance revenue,80s_dance,10/31,merchandise,24,kevin & jen tshirt,host_shirt_1
-5/1,events,250,yuba pre reg,yuba | yuba_prereg,6/1,registration,3165,acy pre reg,acy_prereg,7/7,events,5176,yuba atd,yuba | yuba_atd,8/15,registration,945,pre regs,outreach | registration | acy_prereg,9/1,treasury,45,7th tradition,7th_tradition,10/31,merchandise,12,scott f tshirt,host_shirt_1
-5/1,registration,2750,pre reg,acy_prereg,6/1,treasury,205,7th tradition,7th_tradition,7/7,registration,355.36,yuba acy reg,yuba | acy_prereg,8/1,treasury,33,7th trad bus 1,7th_tradition,9/15,registration,985,pre regs,acy_prereg,10/31,merchandise,12,becky tshirt,host_shirt_1
-,,,,,6/1,misc,0.99,misc,misc,7/1,registration,140,acy regs,acy_prereg,8/15,treasury,45,7th trad bus 2,7th_tradition,9/15,misc,5.7,misc,,10/29,events,7922,halloween,halloween
-,,,,,6/25,events,1270.68,dodgeball event,dodgeball,7/16,registration,300,acy regs @ pajama jam,pajama_jam | acy_prereg,8/13,treasury,10.5,7th trad beach day,7th_tradition | beach_day,,,,,,10/15,registration,780,october pre regs,acy_prereg
-,,,,,,,,,,7/16,registration,105,sanjypaa acy regs,acy_prereg | outreach,,,,,,,,,,,10/30,merchandise,173.5,tshirts,host_shirt_1
-,,,,,,,,,,7/17,hospitality,350,hospitality cash drop,pajama_jam | yuba,,,,,,,,,,,10/15,treasury,97,7th tradition,7th_tradition
-,,,,,,,,,,7/17,unity,70,unity bbq @ eric s,,,,,,,,,,,,10/29,treasury,132,7th tradition,7th_tradition | halloween
-,,,,,,,,,,7/1,treasury,138,7th tradition,7th_tradition,,,,,,,,,,,10/19,registration,400,host site pre reg,acy_prereg | host_site
-,,,,,,,,,,7/1,misc,171.04,donations etc,misc,,,,,,,,,,,10/30,hospitality,336,halloween sales,halloween
-,,,,,,,,,,7/16,events,868,pajama jam income,pajama_jam,,,,,,,,,,,10/30,registration,175,zach and stefan cash,acy_prereg
-,,,,,,,,,,,,,,,,,,,,,,,,,10/30,treasury,92,10/31 bus meeting,7th_tradition
-,,,,,,,,,,,,,,,,,,,,,,,,,10/30,registration,255,maddie prereg cash,outreach | acy_prereg
-,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-,,5000.38,,,,,8316.67,,,,,9623.4,,,,,1246.5,,,,,1169.7,,,,,10410.5,,
-,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-Expense,,,,,Expense,,,,,Expense,,,,,Expense,,,,,Expense,,,,,Expense,,,,
-date,category,amount,description,tag,date,category,amount,description,tag,date,category,amount,description,tag,date,category,amount,description,tag,date,category,amount,description,tag,date,category,amount,description,tag
-,,,,,6/30,treasury,30.78,square,sqare_fee,7/1,treasury,88,facility rental,meeting_space,8/7,treasury,33,business meeting facility rental,meeting_space,9/12,events,200,80s dance facility rental,80s_dance,10/31,merchandise,804,host t-shirts,host_shirt_1 | reimbursement
-,,,,,6/1,hospitality,384.91,food and drink,,7/10,events,3080,yuba,yuba | facility_rental | yuba_rental,8/15,outreach,20,cashbox,,9/15,treasury,25,1 business meeting,meeting_space,10/31,literature,84,literature,
-,,,,,6/24,events,60.77,dodge ball expenses,dodgeball,7/16,hospitality,300,pajama jam hospitality,pajama_jam,8/10,hospitality,106,food and drink for events,,9/12,events,40,80s dance misc,80s_dance,10/31,events,85,pay dj scott,halloween
-,,,,,6/1,treasury,50,facility rental,meeting_space,7/10,hospitality,952.24,yuba tritip and dinner,yuba,8/26,facilities,5000,fairgrounds facility deposit,fairgrounds | facility_rental,9/12,hospitalty,251,80s dance,80s_dance,10/31,events,40.78,halloween decorations,halloween
-,,,,,6/1,misc,14.51,misc,,7/17,unity,63,unity bbq,,8/15,literature,873.88,large sad book purchase,reimburse,9/1,treasury,13.18,square fees,square_fee,10/28,events,152,halloween event space rental benecia,facility_rental | halloween
-,,,,,,,,,,7/30,treasury,97.96,square fees,square_fee,8/30,treasury,16.88,square fees,square_fee,9/1,registration,4.37,reg flyers,flyers,10/19,treasury,25,bus meeting space rental,meeting_space
-,,,,,,,,,,7/1,misc,39.4,misc,,8/21,registration,40.51,stamp thing,,,,,,,10/19,events,378,bubble soccer rental ,bubble_soccer
-,,,,,,,,,,7/14,treasury,500.38,pay back acy advisory,seed,8/5,events,200,deposit for halloween,reimburse | halloween,,,,,,10/11,facility,1500,deposit on audio visual with sound solutions,audio_visual | sound_solutions
-,,,,,,,,,,7/10,arts and graphics,63,flyers and signs for yuba and pajamajam,yuba | pajama_jam,8/1,misc,33.03,misc,,,,,,,10/15,registration,6,reg flyers,flyers
-,,,,,,,,,,7/16,events,300,pajama jam facility rental,facility_rental,8/15,arts and graphics,100,banner,,,,,,,10/15,misc,21,misc,
-,,,,,,,,,,,,,,,8/21,treasury,25,business meeting facility rental,meeting_space,,,,,,10/20,arts and graphics,33,halloween flyers,flyers | halloween
-,,,,,,,,,,,,,,,,arts and graphics,33,flyers,flyers,,,,,,10/30,events,85,dj justin,halloween
-,,,,,,,,,,,,,,,,,,,,,,,,,10/30,events,21,halloween misc,halloween
-,,,,,,,,,,,,,,,,,,,,,,,,,10/30,treasury,20,sweets @ meeting,
-,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-,,0,,,,,540.97,,,,,5483.98,,,,,6481.3,,,,,533.55,,,,,3254.78,,
+May,,,,,June,,,,,July,,,,,August,,,,,September,,,,,October,,,,,November,,,,,December,,,,,January,,,,,February,,,,,March,,,,,April,,,,
+Income,,,,,Income,,,,,Income,,,,,Income,,,,,Income,,,,,Income,,,,,Income,,,,,Income,,,,,Income,,,,,Income,,,,,Income,,,,,Income,,,,
+date,category,amount,description,tag,date,category,amount,description,tag,date,category,amount,description,tag,date,category,amount,description,tag,date,category,amount,description,tag,date,category,amount,description,tag,date,category,amount,description,tag,date,category,amount,description,tag,date,category,amount,description,tag,date,category,amount,description,tag,date,category,amount,description,tag,date,category,amount,description,tag
+5/1,treasury,2000.38,Host seed money,seed,6/1,events,3675,yuba pre reg,yuba | yuba_prereg,7/1,events,1950,yuba prereg,yuba | yuba_prereg,8/13,events,213,beach day and relay race,beach_day,9/2,events,134,80s dance revenue,80s_dance,10/31,merchandise,24,kevin & jen tshirt,host_shirt_1,11/15,registration,600,Transfer from host site,acy_prereg,12/3,events,900,return from ggypaa winter is coming dance,winter_is_coming,1/30,registration,800,acy pre registration,acy_prereg,2/30,registration,800,acy pre registration,acy_prereg,3/30,registration,5000,200 ATD regs @ 25 a pop,acy_atdreg,4/1,registration,3750,150 ATD regs @ 25 a pop,acy_atdreg
+5/1,events,250,yuba pre reg,yuba | yuba_prereg,6/1,registration,3165,acy pre reg,acy_prereg,7/7,events,5176,yuba atd,yuba | yuba_atd,8/15,registration,945,pre regs,outreach | registration | acy_prereg,9/1,treasury,45,7th tradition,7th_tradition,10/31,merchandise,12,scott f tshirt,host_shirt_1,11/1,merch,12,Becky TShirt,bubble_soccer,12/30,registration,800,acy pre registrations,acy_prereg,1/14,events,250,lib sync,lip_sync,2/11,events,500,comedy show,comedy_show,3/30,merch,2000,merch sales,,4/1,merch,3000,,
+5/1,registration,2750,pre reg,acy_prereg,6/1,treasury,205,7th tradition,7th_tradition,7/7,registration,355.36,yuba acy reg,yuba | acy_prereg,8/1,treasury,33,7th trad bus 1,7th_tradition,9/15,registration,985,pre regs,acy_prereg,10/31,merchandise,12,becky tshirt,host_shirt_1,11/5,merch,37,Square tshirts @ summit,,,,,,,,,,,,,,,,,3/31,registration,16250,650 ATD regs @ 25 a pop,acy_atdreg,,,,,
+,,,,,6/1,misc,0.99,misc,misc,7/1,registration,140,acy regs,acy_prereg,8/15,treasury,45,7th trad bus 2,7th_tradition,9/15,misc,5.7,misc,,10/29,events,7922,halloween,halloween,10/31-11/13,merch,457,Cash tshirts,,,,,,,,,,,,,,,,,3/31,merch,6000,merch sales,,,,,,
+,,,,,6/25,events,1270.68,dodgeball event,dodgeball,7/16,registration,300,acy regs @ pajama jam,pajama_jam | acy_prereg,8/13,treasury,10.5,7th trad beach day,7th_tradition | beach_day,,,,,,10/15,registration,780,october pre regs,acy_prereg,11/4-11/5,registration,160,Square summit reg,,,,,,,,,,,,,,,,,3/20,facilities,5000,"money back for the venue rental, 7000 - 2000 for parking",fairgrounds | facility_rental,,,,,
+,,,,,,,,,,7/16,registration,105,sanjypaa acy regs,acy_prereg | outreach,,,,,,,,,,,10/30,merchandise,173.5,tshirts,host_shirt_1,11/4,registration,220,Cash summit reg,,,,,,,,,,,,,,,,,3/30,events,500,broomball,broomball,,,,,
+,,,,,,,,,,7/17,hospitality,350,hospitality cash drop,pajama_jam | yuba,,,,,,,,,,,10/15,treasury,97,7th tradition,7th_tradition,11/12,treasury,23,bubble soccer - 7th tradition,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,7/17,unity,70,unity bbq @ eric s,,,,,,,,,,,,10/29,treasury,132,7th tradition,7th_tradition | halloween,11/12,events,368,bubble soccer - event cash,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,7/1,treasury,138,7th tradition,7th_tradition,,,,,,,,,,,10/19,registration,400,host site pre reg,acy_prereg | host_site,11/12,events,205,bubble soccer - square,,,,,,,,,,,,,,,,,,,,,,4/30,test,0,test,
+,,,,,,,,,,7/1,misc,171.04,donations etc,misc,,,,,,,,,,,10/30,hospitality,336,halloween sales,halloween,11/12,registration,20,bubble soccer - reg cash,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,7/16,events,868,pajama jam income,pajama_jam,,,,,,,,,,,10/30,registration,175,zach and stefan cash,acy_prereg,11/12,registration,50,bubble soccer - reg square,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,10/30,treasury,92,10/31 bus meeting,7th_tradition,11/12,registration,20,sanjypaa square reg,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,10/30,registration,255,maddie prereg cash,outreach | acy_prereg,11/12,hosp,3,bubble soccer - square,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,11/12,hosp,8,bubble soccer - cash,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,5000.38,,,,,8316.67,,,,,9623.4,,,,,1246.5,,,,,1169.7,,,,,10410.5,,,,,2183,,,,,1700,,,,,1050,,,,,1300,,,,,34750,,,,,6750,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+Expense,,,,,Expense,,,,,Expense,,,,,Expense,,,,,Expense,,,,,Expense,,,,,Expense,,,,,Expense,,,,,Expense,,,,,Expense,,,,,Expense,,,,,Expense,,,,
+date,category,amount,description,tag,date,category,amount,description,tag,date,category,amount,description,tag,date,category,amount,description,tag,date,category,amount,description,tag,date,category,amount,description,tag,date,category,amount,description,tag,date,category,amount,description,tag,date,category,amount,description,tag,date,category,amount,description,tag,date,category,amount,description,tag,date,category,amount,description,tag
+,,,,,6/30,treasury,30.78,square,sqare_fee,7/1,treasury,88,facility rental,meeting_space,8/7,treasury,33,business meeting facility rental,meeting_space,9/12,events,200,80s dance facility rental,80s_dance,10/31,merchandise,804,host t-shirts,host_shirt_1 | reimbursement,11/20,events,890,cohost for winter is coming with ggypaa,winter_is_coming,,,,,,1/1,events,300,facility rental & equipment,lip_sync | facility_rental,2/1,events,300,comedy show facility and comedians,comedy_show,3/1,transportation,3332,rest of deposit for transportation,,4/1,facility,8500,rest of deposit for sound solutions,audio visual
+,,,,,6/1,hospitality,384.91,food and drink,,7/10,events,3080,yuba,yuba | facility_rental | yuba_rental,8/15,outreach,20,cashbox,,9/15,treasury,25,1 business meeting,meeting_space,10/31,literature,84,literature,,11/22,transportation,588,transportationo deposit,,,,,,,,,,,,,,,,,3/1,facilities,10548,rest of payment for fairgrounds,fairgrounds | facility_rental,4/1,entertainment,1600,dj murph,dj
+,,,,,6/24,events,60.77,dodge ball expenses,dodgeball,7/16,hospitality,300,pajama jam hospitality,pajama_jam,8/10,hospitality,106,food and drink for events,,9/12,events,40,80s dance misc,80s_dance,10/31,events,85,pay dj scott,halloween,11/1,events,40.78,Payback Becky Halloween ,,,,,,,,,,,,,,,,,3/1,merch,3000,1/3 of merch payment,,4/1,merchandise,6000,pay of rest of merchandise bill,
+,,,,,6/1,treasury,50,facility rental,meeting_space,7/10,hospitality,952.24,yuba tritip and dinner,yuba,8/26,facilities,5000,fairgrounds facility deposit,fairgrounds | facility_rental,9/12,hospitalty,251,80s dance,80s_dance,10/31,events,40.78,halloween decorations,halloween,11/1-11/13,fees,7.92,Square fees,,,,,,,,,,,,,,,,,3/1,programs,4000,,,,,,,
+,,,,,6/1,misc,14.51,misc,,7/17,unity,63,unity bbq,,8/15,literature,873.88,large sad book purchase,reimburse,9/1,treasury,13.18,square fees,square_fee,10/28,events,152,halloween event space rental benecia,facility_rental | halloween,,,,,,,,,,,,,,,,,,,,,3/1,registration,2000,,,,,,,
+,,,,,,,,,,7/30,treasury,97.96,square fees,square_fee,8/30,treasury,16.88,square fees,square_fee,9/1,registration,4.37,reg flyers,flyers,10/19,treasury,25,bus meeting space rental,meeting_space,,,,,,,,,,,,,,,,,,,,,3/1,events,400,broomball,broomball,,,,,
+,,,,,,,,,,7/1,misc,39.4,misc,,8/21,registration,40.51,stamp thing,,,,,,,10/19,events,378,bubble soccer rental ,bubble_soccer,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,7/14,treasury,500.38,pay back acy advisory,seed,8/5,events,200,deposit for halloween,reimburse | halloween,,,,,,10/11,facility,1500,deposit on audio visual with sound solutions,audio_visual | sound_solutions,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,7/10,arts and graphics,63,flyers and signs for yuba and pajamajam,yuba | pajama_jam,8/1,misc,33.03,misc,,,,,,,10/15,registration,6,reg flyers,flyers,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,7/16,events,300,pajama jam facility rental,facility_rental,8/15,arts and graphics,100,banner,,,,,,,10/15,misc,21,misc,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,8/21,treasury,25,business meeting facility rental,meeting_space,,,,,,10/20,arts and graphics,33,halloween flyers,flyers | halloween,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,arts and graphics,33,flyers,flyers,,,,,,10/30,events,85,dj justin,halloween,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,10/30,events,21,halloween misc,halloween,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,10/30,treasury,20,sweets @ meeting,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,0,,,,,540.97,,,,,5483.98,,,,,6481.3,,,,,533.55,,,,,3254.78,,,,,1526.7,,,,,0,,,,,300,,,,,300,,,,,23280,,,,,16100,,

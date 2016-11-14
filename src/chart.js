@@ -1,10 +1,14 @@
-const CONTAINER_WIDTH = 700;
-const CONTAINER_HEIGHT = 500;
-const CHART_WIDTH = 600;
-const CHART_HEIGHT = 450;
+const CONTAINER_WIDTH = 1400;
+const CONTAINER_HEIGHT = 700;
+const CHART_WIDTH = 1300;
+const CHART_HEIGHT = 650;
 const TOP = 25;
 const MID_HEIGHT = CHART_HEIGHT / 2;
 const LEFT = 50;
+const tooltipEntries = {
+  projected: 'red',
+  actual: 'lightskyblue'
+};
 let svg;
 
 function attachGroups() {
@@ -22,13 +26,13 @@ function attachGroups() {
       .enter()
       .append('g')
       .attr('class', (cls) => cls)
-      .attr('transform', `translate(${TOP, LEFT})`)
+      .attr('transform', `translate(${TOP, LEFT})`);
   }
 }
 
 function _appendYear(dateString) {
     let monthNum = parseInt(dateString.split('/')[0]);
-    let year = monthNum < 5 ? '2017' : '2016'
+    let year = monthNum < 5 ? '2017' : '2016';
     return dateString + '/' + year;
 }
 
@@ -44,6 +48,7 @@ function formatDataWithDates(data) {
     memo.push(item);
     return memo;
   }, data.incomeWithDate);
+
   data.combined = _(data.combined).sortBy('date');
 }
 
@@ -57,38 +62,42 @@ function minAndMax(data) {
   let pointer = moment(xMin);
   let end = moment(xMax);
 
-  while(pointer.isSameOrBefore(end)) {
+  while (pointer.isSameOrBefore(end)) {
     data.running.push({date: pointer.toDate()});
     pointer.add(1, 'day');
   }
-  
+
   pointer = 0;
   runningTotal = 0;
   data.combined.forEach((datum) => {
     data.running[pointer].amount = runningTotal;
     isBefore = moment(data.running[pointer].date).isBefore(datum.date);
-    while(moment(data.running[pointer].date).isBefore(datum.date)) {
+    while (moment(data.running[pointer].date).isBefore(datum.date)) {
       data.running[pointer].amount = runningTotal;
       pointer += 1;
     }
     runningTotal += datum.amount;
   });
+
+  data.projectedRunningTotalByDate = data.running.reduce((memo, item) => (_.extend(memo, {
+    [item.date] : item.amount
+  })),{});
 }
 
 function buildAxis(data) {
   yAbs = d3.max(data.running.map(({amount}) => amount));
   yMax = yAbs + yAbs * .2;
   yMin = -.3 * yAbs;
-  yScale = d3.scaleLinear()
+  window.yScale = d3.scaleLinear()
     .domain([yMax, yMin])
-    .range([TOP, TOP+CHART_HEIGHT])
+    .range([TOP, TOP + CHART_HEIGHT])
 
-  xScale = d3.scaleTime()
+  window.xScale = d3.scaleTime()
     .domain([xMin, xMax])
     .range([LEFT, LEFT + CHART_WIDTH])
 
   window.yAxis = d3.axisLeft(yScale)
-    .ticks(10)
+    .ticks(15)
 
   window.xAxis = d3.axisBottom(xScale)
     .ticks(d3.timeMonth)
@@ -118,6 +127,17 @@ function buildDataLines(data) {
       .attr('class', 'line')
       .attr('d', line)
       .attr('transform', `translate(${-LEFT}, 0)`)
+      .style('stroke', tooltipEntries['projected']);
+
+    if(data.currentRunning) {
+      d3.select('.currentDataLineGroup')
+        .append('path')
+        .datum(data.currentRunning)
+        .attr('class', 'line')
+        .attr('d', line)
+        .attr('transform', `translate(${-LEFT}, 0)`)
+        .style('stroke', tooltipEntries['actual']);
+    }
 }
 
 function appendTooltipBase() {
@@ -143,17 +163,39 @@ function addMetaRect() {
     .style('opacity', 0)
 }
 
-function addToolTip(data) {
+function _getTooltipText(mouseX) {
+  let date = new Date(xScale.invert(mouseX).setHours(0,0,0,0));
+  let formattedDate = d3.timeFormat('%a %b %d %Y')(date);
+  let entries = Object.keys(tooltipEntries).filter((entry) => data[`${entry}RunningTotalByDate`]);
+  let amounts = entries.reduce((memo, entry) => {
+    memo[entry] = d3.format('$,.2f')(data[`${entry}RunningTotalByDate`][date]);
+    return memo;
+  }, {});
+
+  let rawHtmlEntries = entries.map((entry) => {
+    return `
+      <div class="tooltip_entry">
+        <div class="tooltip_entry__legend_key" style="background: ${tooltipEntries[entry]}">   .</div>
+        <p class=tooltip_entry__title>${entry}</p>
+        <p class=tooltip_entry__amount> ${amounts[entry]} </p>
+      </div>
+    `;
+  });
+
+  return `
+    <div>${formattedDate}</div>
+    ${rawHtmlEntries.join()}
+  `;
+}
+
+function addTooltip(data) {
   appendTooltipBase();
 
-  
- 
   d3.select('svg')
     .on('mousemove', () => {
-      tooltip.text('hi')
+      tooltip.html(_getTooltipText(d3.event.pageX))
         .style('left', `${d3.event.pageX}px`)
-        .style('top', "200px")
-        .style('background', 'red')
+        .style('top', '200px')
         .style('opacity', .9)
 
       cursorLine
@@ -162,7 +204,7 @@ function addToolTip(data) {
         .attr('x2', d3.event.pageX - LEFT)
         .attr('y2', TOP + CHART_HEIGHT)
         .style('opacity', .9)
-        
+
     })
     .on('mouseout', () => {
       tooltip
@@ -171,19 +213,6 @@ function addToolTip(data) {
       cursorLine
         .style('opacity', 0)
     })
-  //d3.select('.metaRect')
-  //  .on('mousemove', () => {
-  //    tooltip.transition() 
-  //      .duration(200)
-  //      .style('opacity', .9)
-  //    debugger  
-  //  })
-  //  .on('mouseout', () => {
-  //    tooltip.transition()
-  //      .duration(500)
-  //      .style('opacity', 0)
-  //  });
-
 }
 
 function buildChart(selector, data) {
@@ -198,5 +227,5 @@ function buildChart(selector, data) {
   minAndMax(data);
   buildAxis(data);
   buildDataLines(data);
-  addToolTip(data)
+  addTooltip(data);
 }
