@@ -1,18 +1,18 @@
-const CONTAINER_WIDTH = 1400;
-const CONTAINER_HEIGHT = 700;
-const CHART_WIDTH = 1300;
-const CHART_HEIGHT = 650;
-const TOP = 25;
-const MID_HEIGHT = CHART_HEIGHT / 2;
-const LEFT = 50;
-const tooltipEntries = {
+var CONTAINER_WIDTH = 1400;
+var CONTAINER_HEIGHT = 700;
+var CHART_WIDTH = 1300;
+var CHART_HEIGHT = 650;
+var TOP = 25;
+var MID_HEIGHT = CHART_HEIGHT / 2;
+var LEFT = 50;
+var tooltipEntries = {
   projected: 'red',
   actual: 'lightskyblue'
 };
-let svg;
+var svg;
 
 function attachGroups() {
-  let groups = [
+  var groups = [
     'axisGroup',
     'tickGroup',
     'lineGroup',
@@ -25,26 +25,28 @@ function attachGroups() {
       .data(groups)
       .enter()
       .append('g')
-      .attr('class', (cls) => cls)
+      .attr('class', function(cls){
+        return cls;
+      })
       .attr('transform', `translate(${TOP, LEFT})`);
   }
 }
 
 function _appendYear(dateString) {
-    let monthNum = parseInt(dateString.split('/')[0]);
-    let year = monthNum < 5 ? '2017' : '2016';
+    var monthNum = parseInt(dateString.split('/')[0]);
+    var year = monthNum < 5 ? '2017' : '2016';
 
     return dateString + '/' + year;
 }
 
 function formatDataWithDates(data) {
   data.forEach(function(dataSet) {
-    let incomeWithDate = dataSet.income.map((datum) => {
+    var incomeWithDate = dataSet.income.map(function(datum) {
       datum.date = new Date(_appendYear(datum.date));
       return datum;
     });
 
-    dataSet.combined = dataSet.expense.reduce((memo, item) => {
+    dataSet.combined = dataSet.expense.reduce(function(memo, item) {
       item.amount = item.amount * -1;
       item.date = new Date(_appendYear(item.date));
       memo.push(item);
@@ -56,25 +58,27 @@ function formatDataWithDates(data) {
 }
 
 function _computeDateBounds(set, bound) {
-  let dataType = bound[0] === 'x' ? 'date' : 'amount';
-  let calculated = d3['m' + bound.substr(2)](set, (d) => d[dataType]);
+  var dataType = bound[0] === 'x' ? 'date' : 'amount';
+  var calculated = d3['m' + bound.substr(2)](set, function(d){
+    return d[dataType];
+  });
 
   window[bound] = window[bound] !== undefined ?
     Math['m'+ bound.substr(2)](window[bound], calculated) : calculated;
 }
 
 function calculateRunningTotals(data) {
-  let bounds = ['xMin', 'xMax'];
+  var bounds = ['xMin', 'xMax'];
 
-  data.forEach((dataSet) => {
+  data.forEach(function(dataSet)  {
 
-    bounds.forEach((bound) => {
+    bounds.forEach(function(bound) {
       _computeDateBounds(dataSet.combined, bound) ;
     });
 
     dataSet.running = [];
-    let pointer = moment(xMin);
-    let end = moment(xMax);
+    var pointer = moment(xMin);
+    var end = moment(xMax);
 
     while (pointer.isSameOrBefore(end)) {
       dataSet.running.push({date: pointer.toDate()});
@@ -83,7 +87,7 @@ function calculateRunningTotals(data) {
 
     pointer = 0;
     runningTotal = 0;
-    dataSet.combined.forEach((datum) => {
+    dataSet.combined.forEach(function(datum) {
       dataSet.running[pointer].amount = runningTotal;
       isBefore = moment(dataSet.running[pointer].date).isBefore(datum.date);
       while (moment(dataSet.running[pointer].date).isBefore(datum.date)) {
@@ -93,17 +97,19 @@ function calculateRunningTotals(data) {
       runningTotal += datum.amount;
     });
 
-    dataSet.runningTotalByDate = dataSet.running.reduce((memo, item) => (_.extend(memo, {
-      [item.date] : item.amount
-    })),{});
+    dataSet.runningTotalByDate = dataSet.running.reduce(function(memo, item) {
+      return (_.extend(memo, {[item.date] : item.amount }));
+    }, {});
   });
 }
 
 function buildAxis(data) {
-  let yAbs;
+  var yAbs;
 
-  data.forEach((dataSet) => {
-    let calcAbsolute = d3.max(dataSet.running.map(({amount}) => amount));
+  data.forEach(function(dataSet) {
+    var calcAbsolute = d3.max(dataSet.running.map(function(data) {
+      return data.amount;
+    }));
 
     if (yAbs === undefined) {
       yAbs = calcAbsolute;
@@ -112,16 +118,16 @@ function buildAxis(data) {
     }
   });
 
-  yMax = yAbs + yAbs * .2;
-  yMin = -.3 * yAbs;
+  yMax = yAbs + yAbs * 0.2;
+  yMin = -0.3 * yAbs;
 
   window.yScale = d3.scaleLinear()
     .domain([yMax, yMin])
-    .range([TOP, TOP + CHART_HEIGHT])
+    .range([TOP, TOP + CHART_HEIGHT]);
 
   window.xScale = d3.scaleTime()
     .domain([xMin, xMax])
-    .range([LEFT, LEFT + CHART_WIDTH])
+    .range([LEFT, LEFT + CHART_WIDTH]);
 
   window.yAxis = d3.axisLeft(yScale)
     .ticks(15)
@@ -144,11 +150,15 @@ function buildAxis(data) {
 }
 
 function buildDataLines(data) {
-  let line = d3.line()
-    .x((d) => xScale(d.date))
-    .y((d) => yScale(d.amount));
+  var line = d3.line()
+    .x(function(d) {
+      return xScale(d.date);
+    })
+    .y(function(d) {
+      return yScale(d.amount);
+    });
 
-  data.forEach((dataSet) => {
+  data.forEach(function(dataSet) {
     d3.select('.lineGroup')
       .append('path')
       .datum(dataSet.running)
@@ -183,18 +193,26 @@ function addMetaRect() {
 }
 
 function _getTooltipText(mouseX) {
-  let date = new Date(xScale.invert(mouseX).setHours(0,0,0,0));
-  let formattedDate = d3.timeFormat('%a %b %d %Y')(date);
-  let possibleEntries = data.map(({type}) => type);
-  let entries = Object.keys(tooltipEntries).filter((entry) => possibleEntries.indexOf(entry) >= 0);
-  let amounts = entries.reduce((memo, entry) => {
-    memo[entry] = d3.format('$,.2f')(data.filter((dataSet) => dataSet.type === entry)[0].runningTotalByDate[date]);
+  var date = new Date(xScale.invert(mouseX).setHours(0,0,0,0));
+  var formattedDate = d3.timeFormat('%a %b %d %Y')(date);
+  var possibleEntries = data.map(function(data) {
+    return data.type;
+  });
+  var entries = Object.keys(tooltipEntries).filter(function(entry) {
+    return possibleEntries.indexOf(entry) >= 0;
+  });
+  var amounts = entries.reduce(function(memo, entry) {
+    memo[entry] = d3.format('$,.2f')(data.filter(function(dataSet) {
+      return dataSet.type === entry;
+    })[0].runningTotalByDate[date]);
     return memo;
   }, {});
 
-  entries = entries.filter((entry) => amounts[entry] != '$NaN');
+  entries = entries.filter(function(entry) {
+    return amounts[entry] !== '$NaN';
+  });
 
-  let rawHtmlEntries = entries.map((entry) => {
+  var rawHtmlEntries = entries.map(function(entry) {
     return `
       <div class="tooltip_entry">
         <div class="tooltip_entry__legend_key" style="background: ${tooltipEntries[entry]}">.</div>
@@ -214,20 +232,20 @@ function addTooltip(data) {
   appendTooltipBase();
 
   d3.select('svg')
-    .on('mousemove', () => {
+    .on('mousemove', function() {
       tooltip.html(_getTooltipText(d3.event.pageX))
         .style('left', `${d3.event.pageX}px`)
         .style('top', '200px')
-        .style('opacity', .9);
+        .style('opacity', 0.9);
 
       cursorLine
         .attr('x1', d3.event.pageX - LEFT)
         .attr('y1', TOP)
         .attr('x2', d3.event.pageX - LEFT)
         .attr('y2', TOP + CHART_HEIGHT)
-        .style('opacity', .9)
+        .style('opacity', 0.9)
     })
-    .on('mouseout', () => {
+    .on('mouseout', function() {
       tooltip
         .style('opacity', 0)
 

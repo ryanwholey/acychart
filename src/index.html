@@ -6,22 +6,38 @@
   <body>
     <h1>Welcome to the page!</h1>
     <div id="chart_container"></div>
+    <div class="datasets">
+      <div>
+        <h2>Projected</h2>
+        <pre id='projected'></pre>
+      </div>
+      <div>
+        <h2>Actual</h2>
+        <pre id="actual"></pre>
+      </div>
+    </div>
     <script src="lib/jquery/dist/jquery.min.js"></script>
     <script src="lib/underscore/underscore-min.js"></script>
     <script src='lib/d3/build/d3.min.js'></script>
-    <script src='lib/whatwg-fetch/fetch.js'></script>
+    <script src='vendors/vkbeautify.0.99.00.beta.js'></script>
     <script src='./data_manager.js'></script>
     <script src='./formatIncomeAndExpense.js'></script>
     <script src='./chart.js'></script>
+    <script src='./tables.js'></script>
     <script src='lib/moment/min/moment.min.js'></script>
     <script>
+
       $(function() {
+
         $.get('http://localhost:8080/data')
           .then(function(data) {
             formatData(data);
             formatIncomeAndExpense();
 
+
             buildChart('#chart_container', chartData);
+            window.makeTable('#actual', acyData.actual);
+            window.makeTable('#projected', acyData.projected);
           });
       });
     </script>

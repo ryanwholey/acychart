@@ -6,10 +6,19 @@ function formatIncomeAndExpense() {
   window.chartData = [];
 
   _(acyData).each(function(data, type) {
-    let setData = {type};
+    var setData = {type};
 
-    setData.expense = _(data).chain().map(({expense}) => expense).flatten().valueOf();
-    setData.income  = _(data).chain().map(({income}) => income).flatten().valueOf();
+    setData.expense = _(data).chain().map(function(data) {
+      return data.expense;
+    })
+    .flatten()
+    .valueOf();
+
+    setData.income  = _(data).chain().map(function(data) {
+      return data.income;
+    })
+    .flatten()
+    .valueOf();
     window.chartData.push(setData);
   });
 }

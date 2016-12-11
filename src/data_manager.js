@@ -80,7 +80,7 @@ function formatData(data) {
     data.forEach(function(row, i) {
       //nothing important here
       if ( i < 3) {
-        return
+        return;
       }
 
       var splitRow = row.split(',');

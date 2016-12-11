@@ -47,3 +47,8 @@ div.tooltip div.tooltip_entry div.tooltip_entry__legend_key {
   border-style: solid;
   border-color: black;
 }
+
+.datasets {
+  display: flex;
+  justify-content: space-between;
+}
