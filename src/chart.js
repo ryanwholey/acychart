@@ -32,77 +32,6 @@ function attachGroups() {
   }
 }
 
-function _appendYear(dateString) {
-    var monthNum = parseInt(dateString.split('/')[0]);
-    var year = monthNum < 5 ? '2017' : '2016';
-
-    return dateString + '/' + year;
-}
-
-function formatDataWithDates(data) {
-  data.forEach(function(dataSet) {
-    var incomeWithDate = dataSet.income.map(function(datum) {
-      datum.date = new Date(_appendYear(datum.date));
-      return datum;
-    });
-
-    dataSet.combined = dataSet.expense.reduce(function(memo, item) {
-      item.amount = item.amount * -1;
-      item.date = new Date(_appendYear(item.date));
-      memo.push(item);
-      return memo;
-    }, incomeWithDate);
-
-    dataSet.combined = _(dataSet.combined).sortBy('date');
-  });
-}
-
-function _computeDateBounds(set, bound) {
-  var dataType = bound[0] === 'x' ? 'date' : 'amount';
-  var calculated = d3['m' + bound.substr(2)](set, function(d){
-    return d[dataType];
-  });
-
-  window[bound] = window[bound] !== undefined ?
-    Math['m'+ bound.substr(2)](window[bound], calculated) : calculated;
-}
-
-function calculateRunningTotals(data) {
-  var bounds = ['xMin', 'xMax'];
-
-  data.forEach(function(dataSet)  {
-
-    bounds.forEach(function(bound) {
-      _computeDateBounds(dataSet.combined, bound) ;
-    });
-
-    dataSet.running = [];
-    var pointer = moment(xMin);
-    var end = moment(xMax);
-
-    while (pointer.isSameOrBefore(end)) {
-      dataSet.running.push({date: pointer.toDate()});
-      pointer.add(1, 'day');
-    }
-
-    pointer = 0;
-    runningTotal = 0;
-    dataSet.combined.forEach(function(datum) {
-      dataSet.running[pointer].amount = runningTotal;
-      isBefore = moment(dataSet.running[pointer].date).isBefore(datum.date);
-      while (moment(dataSet.running[pointer].date).isBefore(datum.date)) {
-        dataSet.running[pointer].amount = runningTotal;
-        pointer += 1;
-      }
-      runningTotal += datum.amount;
-    });
-
-    dataSet.runningTotalByDate = dataSet.running.reduce(function(memo, item) {
-      return (_.extend(memo, {[item.date] : item.amount }));
-    }, {});
-  });
-}
-
 function buildAxis(data) {
   var yAbs;
 
@@ -124,6 +53,7 @@ function buildAxis(data) {
   window.yScale = d3.scaleLinear()
     .domain([yMax, yMin])
     .range([TOP, TOP + CHART_HEIGHT]);
+
 
   window.xScale = d3.scaleTime()
     .domain([xMin, xMax])
@@ -152,9 +82,10 @@ function buildAxis(data) {
 function buildDataLines(data) {
   var line = d3.line()
     .x(function(d) {
-      return xScale(d.date);
+      return xScale(new Date(d.date));
     })
     .y(function(d) {
+      // var amount = d.amount || 0;
       return yScale(d.amount);
     });
 
@@ -195,12 +126,14 @@ function addMetaRect() {
 function _getTooltipText(mouseX) {
   var date = new Date(xScale.invert(mouseX).setHours(0,0,0,0));
   var formattedDate = d3.timeFormat('%a %b %d %Y')(date);
+
   var possibleEntries = data.map(function(data) {
     return data.type;
   });
   var entries = Object.keys(tooltipEntries).filter(function(entry) {
     return possibleEntries.indexOf(entry) >= 0;
-  });
+  }).reverse();
+
   var amounts = entries.reduce(function(memo, entry) {
     memo[entry] = d3.format('$,.2f')(data.filter(function(dataSet) {
       return dataSet.type === entry;
@@ -262,8 +195,6 @@ function buildChart(selector, data) {
 
   attachGroups();
   addMetaRect();
-  formatDataWithDates(data);
-  calculateRunningTotals(data);
   buildAxis(data);
   buildDataLines(data);
   addTooltip(data);

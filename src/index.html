@@ -6,7 +6,7 @@
   <body>
     <h1>Welcome to the page!</h1>
     <div id="chart_container"></div>
-    <div class="datasets">
+   <!--  <div class="datasets">
       <div>
         <h2>Projected</h2>
         <pre id='projected'></pre>
@@ -15,11 +15,12 @@
         <h2>Actual</h2>
         <pre id="actual"></pre>
       </div>
-    </div>
+    </div> -->
     <script src="lib/jquery/dist/jquery.min.js"></script>
     <script src="lib/underscore/underscore-min.js"></script>
     <script src='lib/d3/build/d3.min.js'></script>
     <script src='vendors/vkbeautify.0.99.00.beta.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/es6-promise/4.0.5/es6-promise.auto.min.js'></script>
     <script src='./data_manager.js'></script>
     <script src='./formatIncomeAndExpense.js'></script>
     <script src='./chart.js'></script>
@@ -28,17 +29,19 @@
     <script>
 
       $(function() {
-
-        $.get('http://localhost:8080/data')
-          .then(function(data) {
-            formatData(data);
-            formatIncomeAndExpense();
-
-
-            buildChart('#chart_container', chartData);
-            window.makeTable('#actual', acyData.actual);
-            window.makeTable('#projected', acyData.projected);
+        var dataType = ['actual', 'projected'];
+        Promise.all(
+          dataType.map(function(set) {
+            return $.get('http://localhost:8000/api/' + set + '/');
+          })
+        )
+        .then(function(data) {
+          var chartData = data.map(function(dataSet, i) {
+            return djFormatData(dataSet, dataType[i]);
           });
+          djRunningTotals(chartData);
+          buildChart('#chart_container', chartData);
+        });
       });
     </script>
   </body>
