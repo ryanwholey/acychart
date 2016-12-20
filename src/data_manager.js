@@ -49,7 +49,7 @@ function djRunningTotals(data) {
       set.running[pointer].amount = runningTotal;
 
       isBefore  = moment(set.running[pointer])
-      while(moment(set.running[pointer].date).isBefore(datum.date)) {
+      while(set.running[pointer] && moment(set.running[pointer].date).isBefore(datum.date)) {
         set.running[pointer].amount = runningTotal;
         pointer += 1;
       }
