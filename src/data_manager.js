@@ -30,8 +30,8 @@ function djRunningTotals(data) {
   window.xMax = dateMax;
 
   data.forEach(function(set) {
-    pointer = moment(dateMin).startOf('day');
-    end = moment(dateMax).startOf('day');
+    pointer = moment(new Date(moment(dateMin).format('LL')))
+    end = moment(new Date(moment(dateMax).format('LL')))
     set.running = [];
     while (pointer.isSameOrBefore(end)) {
       set.running.push({date: pointer.toDate()});
