@@ -30,21 +30,18 @@
 
       $(function() {
         var dataType = ['actual', 'projected'];
-        Promise.all(
-          dataType.map(function(set) {
-            return $.get('http://localhost:8000/api/' + set + '/');
+
+        $.get('http://localhost:8080/data/')
+          .then(function(data) {
+            var chartData = data.map(function(dataSet, i) {
+              return djFormatData(dataSet, dataType[i]);
+            });
+            djRunningTotals(chartData);
+            buildChart('#chart_container', chartData);
           })
-        )
-        .then(function(data) {
-          var chartData = data.map(function(dataSet, i) {
-            return djFormatData(dataSet, dataType[i]);
-          });
-          djRunningTotals(chartData);
-          buildChart('#chart_container', chartData);
-        })
-        .catch(function(err) {
-          console.log('error: ', err);
-        })
+          .catch(function(err) {
+            console.log('error: ', err);
+          })
       });
     </script>
   </body>

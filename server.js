@@ -3,6 +3,7 @@ var app = express();
 var csv = require('csv-parser');
 var fs = require('fs');
 var Promise = require('bluebird');
+var request = require('request-promise');
 
 var config = {
   paths: [
@@ -31,10 +32,18 @@ function readFile(path) {
   });
 }
 
+
 app.get('/data', function(req, res) {
-  Promise.all(config.paths.map(function(path) {
-    return readFile(path);
-  }))
+  var dataTypes = ['actual', 'projected'];
+  var uriBase = 'http://localhost:4001/api/'
+    Promise.all(
+      dataTypes.map(function(type) {
+        return request({
+          json:true,
+          uri: uriBase + type + '/'
+        })
+      })
+    )
     .then(function(data) {
       res.send(data);
     })
