@@ -41,7 +41,10 @@
           });
           djRunningTotals(chartData);
           buildChart('#chart_container', chartData);
-        });
+        })
+        .catch(function(err) {
+          console.log('error: ', err);
+        })
       });
     </script>
   </body>
