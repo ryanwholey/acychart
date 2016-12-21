@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css" type="text/css">
   </head>
   <body>
     <h1>Welcome to the page!</h1>
     <div id="chart_container"></div>
+    <div id="table_container">
+      <div class="actual"></div>
+      <div class="projected"></div>
+    </div>
    <!--  <div class="datasets">
       <div>
         <h2>Projected</h2>
@@ -38,6 +43,8 @@
             });
             djRunningTotals(chartData);
             buildChart('#chart_container', chartData);
+            buildTables('.actual', chartData[0]);
+            buildTables('.projected', chartData[1]);
           })
           .catch(function(err) {
             console.log('error: ', err);

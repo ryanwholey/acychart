@@ -1,6 +1,9 @@
 function djFormatData(data, type) {
   var _memo = {combined: data, expense:[], income:[], type: type};
-
+  if (!data.reduce) {
+    console.log('data is not defined, there was probably an error getting data from the server');
+    return
+  }
   return data.reduce(function(memo, item) {
     var account = item.amount < 0 ? 'expense' : 'income';
     item.date = new Date(item.date);
