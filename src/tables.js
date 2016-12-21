@@ -3,8 +3,8 @@ window.makeTable = function(selector, collection) {
 };
 
 var config = {
-    startMonth: 5,
-    endMonth: 4
+    startMonth: 4,
+    endMonth: 3
 }
 var monthNames = [
     'January',
@@ -25,7 +25,7 @@ window.buildTables = function(selector, data) {
     var $table = $('<table>');
 
     var byMonth = data.combined.reduce(function(memo, item) {
-        var month = item.date.getMonth() + 1;
+        var month = item.date.getMonth();
         if (!memo[month]) {
             memo[month] = [item];
         } else {
@@ -38,11 +38,12 @@ window.buildTables = function(selector, data) {
         // start at begining month, go until no more months and start over again
         var index = (config.startMonth + i) % 12;
         if (byMonth[index]) {
-            byMonth[index].month = index - 1;
+            byMonth[index].month = index;
         }
 
         return byMonth[index];
-    }).filter(function(doot) {return !!doot;})
+    })
+    .filter(function(doot) {return !!doot;})
 
     // HEADER
     var $thead = $('<thead>')
