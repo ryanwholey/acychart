@@ -17,8 +17,9 @@ html {
   font-weight:100;
 }
 
-th, tr{
-  border: 1px solid grey;
+th {
+  padding:0;
+  border-bottom: 1px solid grey;
 }
 
 .month-header {
